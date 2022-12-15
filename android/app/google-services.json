@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "563703243567",
+    "project_id": "flutterflowproject-ae675",
+    "storage_bucket": "flutterflowproject-ae675.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563703243567:android:f288de1bb1e054c8aef7da",
+        "android_client_info": {
+          "package_name": "com.mycompany.dishatest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563703243567-2p3teql285eu1mnsrs9cck68o4bs27ma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCS-6wtst1MM_8VL0W7-WwxTWZpRkN9iic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563703243567-2p3teql285eu1mnsrs9cck68o4bs27ma.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "563703243567-t4ch2asv653bvtstbl5gpa9jk8sp7339.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.dishatest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
