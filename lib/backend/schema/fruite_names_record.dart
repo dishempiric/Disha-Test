@@ -32,6 +32,8 @@ abstract class FruiteNamesRecord
 
   String? get uid;
 
+  String? get love;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -43,7 +45,8 @@ abstract class FruiteNamesRecord
     ..displayName = ''
     ..photoUrl = ''
     ..phoneNumber = ''
-    ..uid = '';
+    ..uid = ''
+    ..love = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('FruiteNames');
@@ -75,6 +78,7 @@ Map<String, dynamic> createFruiteNamesRecordData({
   String? phoneNumber,
   DateTime? createdTime,
   String? uid,
+  String? love,
 }) {
   final firestoreData = serializers.toFirestore(
     FruiteNamesRecord.serializer,
@@ -87,7 +91,8 @@ Map<String, dynamic> createFruiteNamesRecordData({
         ..photoUrl = photoUrl
         ..phoneNumber = phoneNumber
         ..createdTime = createdTime
-        ..uid = uid,
+        ..uid = uid
+        ..love = love,
     ),
   );
 

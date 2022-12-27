@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '../flutter_flow_theme.dart';
 import '../../backend/backend.dart';
+
 import '../../auth/firebase_user_provider.dart';
 
 import '../../index.dart';
@@ -123,19 +124,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => CustomFunctionPageWidget(),
             ),
             FFRoute(
-              name: 'Dialog',
-              path: 'dialog',
-              builder: (context, params) => DialogWidget(),
-            ),
-            FFRoute(
               name: 'CustiomWidget',
               path: 'custiomWidget',
               builder: (context, params) => CustiomWidgetWidget(),
             ),
             FFRoute(
+              name: 'Dialog',
+              path: 'dialog',
+              builder: (context, params) => DialogWidget(),
+            ),
+            FFRoute(
               name: 'CustomActionsPage',
               path: 'customActionsPage',
               builder: (context, params) => CustomActionsPageWidget(),
+            ),
+            FFRoute(
+              name: 'LocalPageCopy',
+              path: 'localPageCopy',
+              builder: (context, params) => LocalPageCopyWidget(
+                title: params.getParam('title', ParamType.String),
+              ),
+            ),
+            FFRoute(
+              name: 'UploadIMedia',
+              path: 'uploadIMedia',
+              builder: (context, params) => UploadIMediaWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
@@ -248,7 +261,7 @@ class FFParameters {
     String paramName,
     ParamType type, [
     bool isList = false,
-    String? collectionName,
+    List<String>? collectionNamePath,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -262,7 +275,7 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList, collectionName);
+    return deserializeParam<T>(param, type, isList, collectionNamePath);
   }
 }
 

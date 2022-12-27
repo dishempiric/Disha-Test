@@ -14,6 +14,7 @@ class LocalPageWidget extends StatefulWidget {
 }
 
 class _LocalPageWidgetState extends State<LocalPageWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -21,6 +22,12 @@ class _LocalPageWidgetState extends State<LocalPageWidget> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -78,7 +85,7 @@ class _LocalPageWidgetState extends State<LocalPageWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Container(
             width: double.infinity,
             height: double.infinity,
@@ -99,81 +106,92 @@ class _LocalPageWidgetState extends State<LocalPageWidget> {
                       final cateNamesItem = cateNames[cateNamesIndex];
                       return Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                valueOrDefault<String>(
+                        child: InkWell(
+                          onTap: () async {
+                            context.pushNamed(
+                              'LocalPageCopy',
+                              queryParams: {
+                                'title': serializeParam(
                                   cateNamesItem,
-                                  'CatName',
+                                  ParamType.String,
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                            ),
-                            if (FFAppState()
-                                .favouriteNames
-                                .contains(cateNamesItem))
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                buttonSize: 60,
-                                icon: Icon(
-                                  Icons.favorite_sharp,
-                                  color: Color(0xFFD91F1F),
-                                  size: 30,
+                              }.withoutNulls,
+                            );
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  valueOrDefault<String>(
+                                    cateNamesItem,
+                                    'CatName',
+                                  ),
+                                  style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
-                                onPressed: () async {
-                                  if (FFAppState()
-                                      .favouriteNames
-                                      .contains(cateNamesItem)) {
-                                    setState(() {
-                                      setState(() => FFAppState()
-                                          .removeFromFavouriteNames(
-                                              cateNamesItem));
-                                    });
-                                  } else {
-                                    setState(() {
-                                      setState(() => FFAppState()
-                                          .addToFavouriteNames(cateNamesItem));
-                                    });
-                                  }
-                                },
                               ),
-                            if (!FFAppState()
-                                .favouriteNames
-                                .contains(cateNamesItem))
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                buttonSize: 60,
-                                icon: Icon(
-                                  Icons.favorite_border,
-                                  color: Color(0xFFD91F1F),
-                                  size: 30,
+                              if (FFAppState()
+                                  .favouriteNames
+                                  .contains(cateNamesItem))
+                                FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30,
+                                  borderWidth: 1,
+                                  buttonSize: 60,
+                                  icon: Icon(
+                                    Icons.favorite_sharp,
+                                    color: Color(0xFFD91F1F),
+                                    size: 30,
+                                  ),
+                                  onPressed: () async {
+                                    if (FFAppState()
+                                        .favouriteNames
+                                        .contains(cateNamesItem)) {
+                                      FFAppState().update(() {
+                                        FFAppState().removeFromFavouriteNames(
+                                            cateNamesItem);
+                                      });
+                                    } else {
+                                      FFAppState().update(() {
+                                        FFAppState()
+                                            .addToFavouriteNames(cateNamesItem);
+                                      });
+                                    }
+                                  },
                                 ),
-                                onPressed: () async {
-                                  if (FFAppState()
-                                      .favouriteNames
-                                      .contains(cateNamesItem)) {
-                                    setState(() {
-                                      setState(() => FFAppState()
-                                          .removeFromFavouriteNames(
-                                              cateNamesItem));
-                                    });
-                                  } else {
-                                    setState(() {
-                                      setState(() => FFAppState()
-                                          .addToFavouriteNames(cateNamesItem));
-                                    });
-                                  }
-                                },
-                              ),
-                          ],
+                              if (!FFAppState()
+                                  .favouriteNames
+                                  .contains(cateNamesItem))
+                                FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30,
+                                  borderWidth: 1,
+                                  buttonSize: 60,
+                                  icon: Icon(
+                                    Icons.favorite_border,
+                                    color: Color(0xFFD91F1F),
+                                    size: 30,
+                                  ),
+                                  onPressed: () async {
+                                    if (FFAppState()
+                                        .favouriteNames
+                                        .contains(cateNamesItem)) {
+                                      FFAppState().update(() {
+                                        FFAppState().removeFromFavouriteNames(
+                                            cateNamesItem);
+                                      });
+                                    } else {
+                                      FFAppState().update(() {
+                                        FFAppState()
+                                            .addToFavouriteNames(cateNamesItem);
+                                      });
+                                    }
+                                  },
+                                ),
+                            ],
+                          ),
                         ),
                       );
                     },

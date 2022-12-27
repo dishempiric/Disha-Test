@@ -16,6 +16,7 @@ class DialogWidget extends StatefulWidget {
 }
 
 class _DialogWidgetState extends State<DialogWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -23,6 +24,12 @@ class _DialogWidgetState extends State<DialogWidget> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -65,7 +72,7 @@ class _DialogWidgetState extends State<DialogWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -87,6 +94,46 @@ class _DialogWidgetState extends State<DialogWidget> {
                   },
                   text: FFLocalizations.of(context).getText(
                     'nb2gtzao' /* BottomSheetDialog */,
+                  ),
+                  options: FFButtonOptions(
+                    width: double.infinity,
+                    height: 40,
+                    color: FlutterFlowTheme.of(context).primaryColor,
+                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                          fontFamily: 'Poppins',
+                          color: Colors.white,
+                        ),
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (alertDialogContext) {
+                        return AlertDialog(
+                          title: Text('open Alert'),
+                          content: Text('Open  Sub Alert'),
+                          actions: [
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext),
+                              child: Text('Ok'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  text: FFLocalizations.of(context).getText(
+                    '1gdok1e6' /* AlertDialog */,
                   ),
                   options: FFButtonOptions(
                     width: double.infinity,

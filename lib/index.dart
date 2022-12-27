@@ -12,7 +12,9 @@ export 'google_authentication_page/google_authentication_page_widget.dart'
 export 'api_page/api_page_widget.dart' show ApiPageWidget;
 export 'custom_function_page/custom_function_page_widget.dart'
     show CustomFunctionPageWidget;
-export 'dialog/dialog_widget.dart' show DialogWidget;
 export 'custiom_widget/custiom_widget_widget.dart' show CustiomWidgetWidget;
+export 'dialog/dialog_widget.dart' show DialogWidget;
 export 'custom_actions_page/custom_actions_page_widget.dart'
     show CustomActionsPageWidget;
+export 'local_page_copy/local_page_copy_widget.dart' show LocalPageCopyWidget;
+export 'upload_i_media/upload_i_media_widget.dart' show UploadIMediaWidget;

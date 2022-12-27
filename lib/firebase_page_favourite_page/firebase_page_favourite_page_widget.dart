@@ -18,6 +18,7 @@ class FirebasePageFavouritePageWidget extends StatefulWidget {
 
 class _FirebasePageFavouritePageWidgetState
     extends State<FirebasePageFavouritePageWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -25,6 +26,12 @@ class _FirebasePageFavouritePageWidgetState
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,7 +74,7 @@ class _FirebasePageFavouritePageWidgetState
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Container(
             width: double.infinity,
             height: double.infinity,

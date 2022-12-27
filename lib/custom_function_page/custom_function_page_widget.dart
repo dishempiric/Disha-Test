@@ -17,6 +17,7 @@ class CustomFunctionPageWidget extends StatefulWidget {
 }
 
 class _CustomFunctionPageWidgetState extends State<CustomFunctionPageWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -24,6 +25,12 @@ class _CustomFunctionPageWidgetState extends State<CustomFunctionPageWidget> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -66,7 +73,7 @@ class _CustomFunctionPageWidgetState extends State<CustomFunctionPageWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: FutureBuilder<ApiCallResponse>(
             future: EmployeesCall.call(),
             builder: (context, snapshot) {
@@ -115,7 +122,8 @@ class _CustomFunctionPageWidgetState extends State<CustomFunctionPageWidget> {
                               children: [
                                 Text(
                                   valueOrDefault<String>(
-                                    functions.customFunction(employeeNamesItem),
+                                    functions.customFunction(
+                                        employeeNamesItem.toString()),
                                     'employeeName',
                                   ),
                                   style: FlutterFlowTheme.of(context).bodyText1,

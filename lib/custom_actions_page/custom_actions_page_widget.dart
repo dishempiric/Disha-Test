@@ -4,7 +4,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../custom_code/actions/index.dart' as actions;
 import '../flutter_flow/custom_functions.dart' as functions;
-import 'package:styled_divider/styled_divider.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -23,6 +22,7 @@ class _CustomActionsPageWidgetState extends State<CustomActionsPageWidget> {
   TextEditingController? textField1Controller;
   TextEditingController? textField2Controller;
   int? customAns;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -35,6 +35,7 @@ class _CustomActionsPageWidgetState extends State<CustomActionsPageWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     textField1Controller?.dispose();
     textField2Controller?.dispose();
     super.dispose();
@@ -80,7 +81,7 @@ class _CustomActionsPageWidgetState extends State<CustomActionsPageWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Container(
             width: double.infinity,
             height: double.infinity,

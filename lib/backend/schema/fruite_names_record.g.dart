@@ -77,6 +77,13 @@ class _$FruiteNamesRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.love;
+    if (value != null) {
+      result
+        ..add('love')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -132,6 +139,10 @@ class _$FruiteNamesRecordSerializer
           result.uid = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'love':
+          result.love = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -163,6 +174,8 @@ class _$FruiteNamesRecord extends FruiteNamesRecord {
   @override
   final String? uid;
   @override
+  final String? love;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$FruiteNamesRecord(
@@ -178,6 +191,7 @@ class _$FruiteNamesRecord extends FruiteNamesRecord {
       this.phoneNumber,
       this.createdTime,
       this.uid,
+      this.love,
       this.ffRef})
       : super._();
 
@@ -201,6 +215,7 @@ class _$FruiteNamesRecord extends FruiteNamesRecord {
         phoneNumber == other.phoneNumber &&
         createdTime == other.createdTime &&
         uid == other.uid &&
+        love == other.love &&
         ffRef == other.ffRef;
   }
 
@@ -213,14 +228,16 @@ class _$FruiteNamesRecord extends FruiteNamesRecord {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, name.hashCode),
-                                    isFavourite.hashCode),
-                                email.hashCode),
-                            displayName.hashCode),
-                        photoUrl.hashCode),
-                    phoneNumber.hashCode),
-                createdTime.hashCode),
-            uid.hashCode),
+                                $jc(
+                                    $jc($jc(0, name.hashCode),
+                                        isFavourite.hashCode),
+                                    email.hashCode),
+                                displayName.hashCode),
+                            photoUrl.hashCode),
+                        phoneNumber.hashCode),
+                    createdTime.hashCode),
+                uid.hashCode),
+            love.hashCode),
         ffRef.hashCode));
   }
 
@@ -235,6 +252,7 @@ class _$FruiteNamesRecord extends FruiteNamesRecord {
           ..add('phoneNumber', phoneNumber)
           ..add('createdTime', createdTime)
           ..add('uid', uid)
+          ..add('love', love)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -276,6 +294,10 @@ class FruiteNamesRecordBuilder
   String? get uid => _$this._uid;
   set uid(String? uid) => _$this._uid = uid;
 
+  String? _love;
+  String? get love => _$this._love;
+  set love(String? love) => _$this._love = love;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -295,6 +317,7 @@ class FruiteNamesRecordBuilder
       _phoneNumber = $v.phoneNumber;
       _createdTime = $v.createdTime;
       _uid = $v.uid;
+      _love = $v.love;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -326,6 +349,7 @@ class FruiteNamesRecordBuilder
             phoneNumber: phoneNumber,
             createdTime: createdTime,
             uid: uid,
+            love: love,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

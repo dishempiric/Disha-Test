@@ -20,6 +20,11 @@ class FFAppState extends ChangeNotifier {
         prefs.getStringList('ff_favouriteNames') ?? _favouriteNames;
   }
 
+  void update(VoidCallback callback) {
+    callback();
+    notifyListeners();
+  }
+
   late SharedPreferences prefs;
 
   List<String> _CatNames = [
@@ -33,20 +38,16 @@ class FFAppState extends ChangeNotifier {
   ];
   List<String> get CatNames => _CatNames;
   set CatNames(List<String> _value) {
-    notifyListeners();
-
     _CatNames = _value;
     prefs.setStringList('ff_CatNames', _value);
   }
 
   void addToCatNames(String _value) {
-    notifyListeners();
     _CatNames.add(_value);
     prefs.setStringList('ff_CatNames', _CatNames);
   }
 
   void removeFromCatNames(String _value) {
-    notifyListeners();
     _CatNames.remove(_value);
     prefs.setStringList('ff_CatNames', _CatNames);
   }
@@ -54,20 +55,16 @@ class FFAppState extends ChangeNotifier {
   List<String> _favouriteNames = [];
   List<String> get favouriteNames => _favouriteNames;
   set favouriteNames(List<String> _value) {
-    notifyListeners();
-
     _favouriteNames = _value;
     prefs.setStringList('ff_favouriteNames', _value);
   }
 
   void addToFavouriteNames(String _value) {
-    notifyListeners();
     _favouriteNames.add(_value);
     prefs.setStringList('ff_favouriteNames', _favouriteNames);
   }
 
   void removeFromFavouriteNames(String _value) {
-    notifyListeners();
     _favouriteNames.remove(_value);
     prefs.setStringList('ff_favouriteNames', _favouriteNames);
   }

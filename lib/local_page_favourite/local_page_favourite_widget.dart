@@ -15,6 +15,7 @@ class LocalPageFavouriteWidget extends StatefulWidget {
 }
 
 class _LocalPageFavouriteWidgetState extends State<LocalPageFavouriteWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -22,6 +23,12 @@ class _LocalPageFavouriteWidgetState extends State<LocalPageFavouriteWidget> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -60,7 +67,7 @@ class _LocalPageFavouriteWidgetState extends State<LocalPageFavouriteWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Container(
             width: double.infinity,
             height: double.infinity,
@@ -81,56 +88,68 @@ class _LocalPageFavouriteWidgetState extends State<LocalPageFavouriteWidget> {
                           favouriteNames[favouriteNamesIndex];
                       return Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                favouriteNamesItem,
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                            ),
-                            if (FFAppState()
-                                .favouriteNames
-                                .contains(favouriteNamesItem))
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                buttonSize: 60,
-                                icon: Icon(
-                                  Icons.favorite_sharp,
-                                  color: Color(0xFFD91F1F),
-                                  size: 30,
+                        child: InkWell(
+                          onTap: () async {
+                            context.pushNamed(
+                              'LocalPageCopy',
+                              queryParams: {
+                                'title': serializeParam(
+                                  favouriteNamesItem,
+                                  ParamType.String,
                                 ),
-                                onPressed: () async {
-                                  setState(() {
-                                    setState(() => FFAppState()
-                                        .removeFromFavouriteNames(
-                                            favouriteNamesItem));
-                                  });
-                                },
-                              ),
-                            if (!FFAppState()
-                                .favouriteNames
-                                .contains(favouriteNamesItem))
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                buttonSize: 60,
-                                icon: Icon(
-                                  Icons.favorite_border,
-                                  color: Color(0xFFD91F1F),
-                                  size: 30,
+                              }.withoutNulls,
+                            );
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  favouriteNamesItem,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
                               ),
-                          ],
+                              if (FFAppState()
+                                  .favouriteNames
+                                  .contains(favouriteNamesItem))
+                                FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30,
+                                  borderWidth: 1,
+                                  buttonSize: 60,
+                                  icon: Icon(
+                                    Icons.favorite_sharp,
+                                    color: Color(0xFFD91F1F),
+                                    size: 30,
+                                  ),
+                                  onPressed: () async {
+                                    FFAppState().update(() {
+                                      FFAppState().removeFromFavouriteNames(
+                                          favouriteNamesItem);
+                                    });
+                                  },
+                                ),
+                              if (!FFAppState()
+                                  .favouriteNames
+                                  .contains(favouriteNamesItem))
+                                FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30,
+                                  borderWidth: 1,
+                                  buttonSize: 60,
+                                  icon: Icon(
+                                    Icons.favorite_border,
+                                    color: Color(0xFFD91F1F),
+                                    size: 30,
+                                  ),
+                                  onPressed: () {
+                                    print('IconButton pressed ...');
+                                  },
+                                ),
+                            ],
+                          ),
                         ),
                       );
                     },

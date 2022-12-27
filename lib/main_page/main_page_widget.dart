@@ -14,6 +14,7 @@ class MainPageWidget extends StatefulWidget {
 }
 
 class _MainPageWidgetState extends State<MainPageWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -21,6 +22,12 @@ class _MainPageWidgetState extends State<MainPageWidget> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -32,7 +39,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Container(
             width: double.infinity,
             height: double.infinity,
@@ -263,6 +270,32 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                     },
                     text: FFLocalizations.of(context).getText(
                       'dd1rsn9k' /* Custom Actions */,
+                    ),
+                    options: FFButtonOptions(
+                      width: 130,
+                      height: 40,
+                      color: FlutterFlowTheme.of(context).primaryColor,
+                      textStyle:
+                          FlutterFlowTheme.of(context).subtitle2.override(
+                                fontFamily: 'Poppins',
+                                color: Colors.white,
+                              ),
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      context.pushNamed('UploadIMedia');
+                    },
+                    text: FFLocalizations.of(context).getText(
+                      'ztiju8hn' /* Upload  Media */,
                     ),
                     options: FFButtonOptions(
                       width: 130,

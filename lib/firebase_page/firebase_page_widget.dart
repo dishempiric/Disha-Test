@@ -16,6 +16,7 @@ class FirebasePageWidget extends StatefulWidget {
 }
 
 class _FirebasePageWidgetState extends State<FirebasePageWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -23,6 +24,12 @@ class _FirebasePageWidgetState extends State<FirebasePageWidget> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -80,7 +87,7 @@ class _FirebasePageWidgetState extends State<FirebasePageWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Container(
             width: double.infinity,
             height: double.infinity,
@@ -114,41 +121,56 @@ class _FirebasePageWidgetState extends State<FirebasePageWidget> {
                     itemBuilder: (context, listViewIndex) {
                       final listViewFruiteNamesRecord =
                           listViewFruiteNamesRecordList[listViewIndex];
-                      return Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                listViewFruiteNamesRecord.name!,
+                      return Visibility(
+                        visible: listViewFruiteNamesRecord.love == '0'
+                            ? false
+                            : true,
+                        child: Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  listViewFruiteNamesRecord.name!,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                              ),
+                              Text(
+                                valueOrDefault<String>(
+                                  listViewFruiteNamesRecord.love != '0'
+                                      ? listViewFruiteNamesRecord.love
+                                      : 'null',
+                                  'null',
+                                ),
                                 style: FlutterFlowTheme.of(context).bodyText1,
                               ),
-                            ),
-                            ToggleIcon(
-                              onPressed: () async {
-                                final fruiteNamesUpdateData = {
-                                  'is_favourite':
-                                      !listViewFruiteNamesRecord.isFavourite!,
-                                };
-                                await listViewFruiteNamesRecord.reference
-                                    .update(fruiteNamesUpdateData);
-                              },
-                              value: listViewFruiteNamesRecord.isFavourite!,
-                              onIcon: Icon(
-                                Icons.favorite_sharp,
-                                color: Color(0xFFE11717),
-                                size: 25,
+                              ToggleIcon(
+                                onPressed: () async {
+                                  final fruiteNamesUpdateData = {
+                                    'is_favourite':
+                                        !listViewFruiteNamesRecord.isFavourite!,
+                                  };
+                                  await listViewFruiteNamesRecord.reference
+                                      .update(fruiteNamesUpdateData);
+                                },
+                                value: listViewFruiteNamesRecord.isFavourite!,
+                                onIcon: Icon(
+                                  Icons.favorite_sharp,
+                                  color: Color(0xFFE11717),
+                                  size: 25,
+                                ),
+                                offIcon: Icon(
+                                  Icons.favorite_border,
+                                  color: Color(0xFFE11717),
+                                  size: 25,
+                                ),
                               ),
-                              offIcon: Icon(
-                                Icons.favorite_border,
-                                color: Color(0xFFE11717),
-                                size: 25,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },

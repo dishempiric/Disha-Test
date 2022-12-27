@@ -15,6 +15,7 @@ class ApiPageWidget extends StatefulWidget {
 }
 
 class _ApiPageWidgetState extends State<ApiPageWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -22,6 +23,12 @@ class _ApiPageWidgetState extends State<ApiPageWidget> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -64,7 +71,7 @@ class _ApiPageWidgetState extends State<ApiPageWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: FutureBuilder<ApiCallResponse>(
             future: EmployeesCall.call(),
             builder: (context, snapshot) {
@@ -112,7 +119,7 @@ class _ApiPageWidgetState extends State<ApiPageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  employeeNamesItem,
+                                  employeeNamesItem.toString(),
                                   style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
                               ],

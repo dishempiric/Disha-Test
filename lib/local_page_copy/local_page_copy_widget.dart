@@ -1,20 +1,23 @@
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class CustiomWidgetWidget extends StatefulWidget {
-  const CustiomWidgetWidget({Key? key}) : super(key: key);
+class LocalPageCopyWidget extends StatefulWidget {
+  const LocalPageCopyWidget({
+    Key? key,
+    this.title,
+  }) : super(key: key);
+
+  final String? title;
 
   @override
-  _CustiomWidgetWidgetState createState() => _CustiomWidgetWidgetState();
+  _LocalPageCopyWidgetState createState() => _LocalPageCopyWidgetState();
 }
 
-class _CustiomWidgetWidgetState extends State<CustiomWidgetWidget> {
+class _LocalPageCopyWidgetState extends State<LocalPageCopyWidget> {
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -41,23 +44,19 @@ class _CustiomWidgetWidgetState extends State<CustiomWidgetWidget> {
       appBar: AppBar(
         backgroundColor: Color(0xFF5CD5AE),
         automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.arrow_back,
-            color: FlutterFlowTheme.of(context).primaryBtnText,
-            size: 30,
-          ),
-          onPressed: () async {
+        leading: InkWell(
+          onTap: () async {
             context.pop();
           },
+          child: Icon(
+            Icons.arrow_back,
+            color: Color(0xFFF5F5F5),
+            size: 24,
+          ),
         ),
         title: Text(
           FFLocalizations.of(context).getText(
-            'bzwbdk45' /* Custom Widget */,
+            '6m0t544p' /* PAssed  Data */,
           ),
           style: FlutterFlowTheme.of(context).title2.override(
                 fontFamily: 'Poppins',
@@ -72,15 +71,18 @@ class _CustiomWidgetWidgetState extends State<CustiomWidgetWidget> {
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-          child: Container(
-            width: 300,
-            height: 300,
-            child: custom_widgets.CustomWidget(
-              width: 300,
-              height: 300,
-              padding: 10.0,
-              strokwWidth: 20.0,
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                child: Text(
+                  widget.title!,
+                  textAlign: TextAlign.center,
+                  style: FlutterFlowTheme.of(context).bodyText1,
+                ),
+              ),
+            ],
           ),
         ),
       ),

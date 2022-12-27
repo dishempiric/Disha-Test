@@ -197,6 +197,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Custom Actions',
       'gu': 'ફાયરબેઝ પ્રમાણીકરણ',
     },
+    'ztiju8hn': {
+      'en': 'Upload  Media',
+      'gu': 'ફાયરબેઝ પ્રમાણીકરણ',
+    },
     'n0lkzeb4': {
       'en': 'Home',
       'gu': 'ઘર',
@@ -231,6 +235,17 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'gu': 'ઘર',
     },
   },
+  // CustiomWidget
+  {
+    'bzwbdk45': {
+      'en': 'Custom Widget',
+      'gu': 'ફ્રુટલિસ્ટ',
+    },
+    'e8orvxa3': {
+      'en': 'Home',
+      'gu': 'ઘર',
+    },
+  },
   // Dialog
   {
     'vo93krtn': {
@@ -241,18 +256,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'BottomSheetDialog',
       'gu': '',
     },
+    '1gdok1e6': {
+      'en': 'AlertDialog',
+      'gu': '',
+    },
     'p25sdwg3': {
-      'en': 'Home',
-      'gu': 'ઘર',
-    },
-  },
-  // CustiomWidget
-  {
-    'bzwbdk45': {
-      'en': 'Custom Widget',
-      'gu': 'ફ્રુટલિસ્ટ',
-    },
-    'e8orvxa3': {
       'en': 'Home',
       'gu': 'ઘર',
     },
@@ -276,6 +284,32 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'gu': '',
     },
     'imx9dbja': {
+      'en': 'Home',
+      'gu': 'ઘર',
+    },
+  },
+  // LocalPageCopy
+  {
+    '6m0t544p': {
+      'en': 'PAssed  Data',
+      'gu': 'મનપસંદ ફળોની સૂચિ',
+    },
+    'hng5tpv9': {
+      'en': 'Home',
+      'gu': 'ઘર',
+    },
+  },
+  // UploadIMedia
+  {
+    'oelhw9tc': {
+      'en': 'Upload Media',
+      'gu': 'ફ્રુટલિસ્ટ',
+    },
+    'h405waoa': {
+      'en': 'Upload  Image',
+      'gu': '',
+    },
+    'im1lpbvj': {
       'en': 'Home',
       'gu': 'ઘર',
     },

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import '../../flutter_flow/flutter_flow_util.dart';
 
@@ -17,6 +18,8 @@ class EmployeesCall {
       headers: {},
       params: {},
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }
